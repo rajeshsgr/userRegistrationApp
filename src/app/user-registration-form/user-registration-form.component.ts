@@ -17,6 +17,8 @@ export class UserRegistrationFormComponent  {
 
   user = { name: '', age: '', gender: '', email: '',country: '' };
 
+  users  = []; 
+
   submitted = false;
 
   countries = [
@@ -33,6 +35,8 @@ export class UserRegistrationFormComponent  {
 
   onSubmit() {
 
+    console.log("Submit User List");
+
     this.user.name=this.signupForm.value.name;
     this.user.age=this.signupForm.value.age;
     this.user.gender=this.signupForm.value.gender;
@@ -40,8 +44,6 @@ export class UserRegistrationFormComponent  {
     this.user.country=this.signupForm.value.country;
 
     this.submitted=true;
-
-    console.log(this.user); 
 
     this.http
       .post(
@@ -52,6 +54,24 @@ export class UserRegistrationFormComponent  {
         console.log(responseData);
       });
 
+      this.getUserList();
+
+  }
+
+  getUserList(){
+
+    console.log("Fetch User List");
+
+    this.http.
+    get('http://localhost:8098/userSvc/api/users')
+    .subscribe((res : any[])=>{
+      console.log(res);
+      this.users = res;
+      });
+      console.log("Start Print");
+      console.log(this.users);
+      console.log("End Print");
+    
   }
 
   constructor(private http: HttpClient) { }

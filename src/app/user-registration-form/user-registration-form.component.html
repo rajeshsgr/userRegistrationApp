@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-6 col-md-offset-3">
 
-            <form class="form-horizontal simple-validation" (ngSubmit)="onSubmit()" #f="ngForm">
+            <form class="form-horizontal simple-validation" (ngSubmit)="onSubmit()" #f="ngForm" >
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">Name</label>
 
@@ -68,9 +68,36 @@
                         <button id="singlebutton" type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
             
                         <button id="singlebutton" name="singlebutton" class="btn btn-primary" (click)="resetForm()">Reset</button>
-                    </div>
+
+                        <button id="fetchButton" name="fetchButton" class="btn btn-primary" (click)="getUserList(); $event.preventDefault()" >Show Users</button>
+                </div>
 
             </form>
+
+            <br> <br><br> <br>
+    
+            <div *ngIf="users.length > 0">
+            <table class="table table-bordered table-striped">
+                    <thead>
+                    <th># User ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Email</th>
+                    <th>Country</th>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let user of users">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.age}}</td>
+                    <td>{{user.gender}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.country}}</td>
+                    </tr>
+                    </tbody>
+                    </table>
+            </div>
 
         </div>
     </div>
